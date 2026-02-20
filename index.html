@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasscoder | Technical Motion Design</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Rajdhani for futuristic headers, Inter for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Tailwind Config for Neon Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: {
+                            cyan: '#00f3ff',
+                            purple: '#bc13fe',
+                            blue: '#3b82f6',
+                            gold: '#fbbf24', 
+                        },
+                        dark: {
+                            bg: '#0f172a',
+                            card: 'rgba(30, 41, 59, 0.7)',
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-card': 'float-card 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'blob': 'blob 7s infinite alternate',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'grid-move': 'grid-move 20s linear infinite',
+                    },
+                    keyframes: {
+                        // Updated to face RIGHT (-12deg) and float up/down
+                        'float-card': {
+                            '0%, 100%': { transform: 'translateY(0) rotateY(-12deg) rotateX(5deg)' },
+                            '50%': { transform: 'translateY(-20px) rotateY(-12deg) rotateX(5deg)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.2)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.8)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        },
+                        'grid-move': {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '40px 40px' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Futuristic Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+
+        ::selection { background-color: #bc13fe; color: #ffffff; }
+
+        /* Animated Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            animation: grid-move 20s linear infinite;
+        }
+
+        /* Lighter Glass Effect */
+        .card-glass {
+            background: rgba(30, 41, 59, 0.4); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            border-color: rgba(0, 243, 255, 0.4);
+            background: rgba(30, 41, 59, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.1);
+        }
+
+        /* Animation Keyframes */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+            will-change: transform; 
+        }
+        
+        .group:hover .animate-marquee { animation-play-state: paused; }
+
+        .stroke-text {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .stroke-text:hover {
+            color: #fff;
+            text-shadow: 0 0 15px currentColor;
+            -webkit-text-stroke: 0px transparent;
+        }
+
+        /* 3D Utils */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        
+        /* Nav */
+        .nav-scrolled {
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .clip-path-slant { clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); }
+        
+        /* Floating Animation Utility */
+        .floating-delayed { animation: float-slow 7s ease-in-out infinite 1s; }
+    </style>
+</head>
+<body class="antialiased selection:bg-neon-cyan selection:text-black">
+
+    <!-- Background Layers -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        
+        <!-- Faster, Visible Blobs -->
+        <div class="absolute top-[5%] left-[10%] w-[600px] h-[600px] bg-neon-purple rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob"></div>
+        <div class="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-neon-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[0%] left-[20%] w-[700px] h-[700px] bg-neon-blue rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
+        <!-- Warm accent -->
+        <div class="absolute top-[60%] right-[40%] w-[400px] h-[400px] bg-neon-gold rounded-full mix-blend-screen filter blur-[100px] opacity-15 animate-blob"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex justify-between items-center w-full md:w-auto">
+                <a href="#home" class="font-mono text-2xl font-bold tracking-tighter hover:text-neon-cyan transition-colors group z-50 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-neon-cyan to-neon-purple rounded flex items-center justify-center text-black font-bold text-lg">N</div>
+                    <span>NASS<span class="text-neon-cyan group-hover:text-white transition-colors">CODER</span></span>
+                </a>
+                
+                <!-- Github Mobile -->
+                <a href="https://github.com/nasscoder" target="_blank" class="md:hidden flex items-center gap-2 px-3 py-1 text-xs font-bold font-mono uppercase tracking-widest text-black bg-neon-cyan rounded-sm clip-path-slant">
+                    <i data-lucide="github" class="w-3 h-3"></i>
+                </a>
+            </div>
+            
+            <!-- Horizontal Scroll Menu for Mobile -->
+            <div class="w-full md:w-auto overflow-x-auto no-scrollbar">
+                <div class="flex items-center space-x-6 md:space-x-8 bg-slate-800/50 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 min-w-max mx-auto">
+                    <a href="#home" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-neon-cyan hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#education" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">Edu</a>
+                    <a href="#skills" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">Skills</a>
+                    <a href="#experience" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">Exp</a>
+                    <a href="#services" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">Svcs</a>
+                    <a href="#contact" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-slate-300 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+
+            <!-- Github Desktop -->
+            <a href="https://github.com/nasscoder" target="_blank" class="hidden md:flex items-center gap-2 px-5 py-2 text-sm font-bold font-mono uppercase tracking-widest text-slate-900 bg-neon-cyan hover:bg-white hover:shadow-[0_0_20px_rgba(0,243,255,0.6)] transition-all duration-300 rounded-sm clip-path-slant">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1. HOME (Cover) -->
+    <section id="home" class="relative z-10 min-h-screen flex items-center justify-center pt-24 md:pt-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 md:space-y-8 text-center md:text-left floating-delayed">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-xs md:text-sm font-mono tracking-widest uppercase">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span>
+                    </span>
+                    Technical Motion Designer
+                </div>
+                
+                <h1 class="font-mono text-5xl md:text-7xl font-bold leading-tight text-white drop-shadow-lg">
+                    TURNING COMPLEX <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-purple filter drop-shadow-[0_0_10px_rgba(0,243,255,0.5)]">
+                        CODE INTO VISUALS.
+                    </span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-300 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
+                    I'm the bridge between your backend team and your users. I speak API, database, and keyframe.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
+                    <a href="#services" class="px-8 py-4 bg-neon-cyan text-slate-900 font-mono font-bold uppercase tracking-widest hover:bg-white hover:shadow-[0_0_30px_rgba(0,243,255,0.4)] transition-all duration-300 rounded-sm">
+                        View_Services
+                    </a>
+                    <a href="#contact" class="px-8 py-4 bg-white/5 border border-white/20 text-white font-mono font-bold uppercase tracking-widest hover:bg-white/10 hover:border-neon-purple transition-all duration-300 rounded-sm">
+                        Contact_Me
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3D Card Visual - Moving & Floating -->
+            <div class="relative h-[500px] w-full hidden md:flex items-center justify-center perspective-1000">
+                <div class="relative w-80 h-[450px] transform-style-3d group">
+                    <!-- Glow behind -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-purple blur-[50px] opacity-30 animate-pulse"></div>
+                    
+                    <!-- Card Face with Floating Animation -->
+                    <div class="absolute inset-0 bg-[#0f172a] border border-white/10 backdrop-blur-xl p-6 rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-start animate-float-card" style="transform-origin: center center;">
+                         <!-- Header -->
+                         <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+                             <div class="flex gap-2">
+                                 <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                 <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                 <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                             </div>
+                             <span class="font-mono text-xs text-slate-400">profile.tsx</span>
+                        </div>
+                        
+                        <!-- Code Content -->
+                        <div class="space-y-3 font-mono text-xs leading-relaxed">
+                            <p><span class="text-neon-purple">const</span> <span class="text-neon-gold">Nasscoder</span> = <span class="text-white">{</span></p>
+                            <p class="pl-4 text-slate-400">role: <span class="text-green-400">"Creative Technologist"</span>,</p>
+                            <p class="pl-4 text-slate-400">core: <span class="text-white">[</span></p>
+                            <p class="pl-8 text-neon-cyan">"Computer Science",</p>
+                            <p class="pl-8 text-neon-cyan">"Motion Graphics",</p>
+                            <p class="pl-8 text-neon-cyan">"Full Stack"</p>
+                            <p class="pl-4 text-white">],</p>
+                            <p class="pl-4 text-slate-400">mission: <span class="text-white">()</span> <span class="text-neon-purple">=></span> <span class="text-white">{</span></p>
+                            <p class="pl-8"><span class="text-neon-purple">return</span> <span class="text-green-400">"Visualize Logic"</span>;</p>
+                            <p class="pl-4 text-white">}</p>
+                            <p class="text-white">};</p>
+                        </div>
+                        
+                        <!-- Rendering Section - Explicitly Inside -->
+                        <div class="mt-auto pt-4 border-t border-white/10">
+                            <div class="bg-slate-900/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-neon-cyan/20 flex items-center justify-center text-neon-cyan">
+                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="h-1.5 w-full bg-slate-700 rounded-full mb-1">
+                                        <div class="h-full w-2/3 bg-neon-cyan rounded-full animate-pulse"></div>
+                                    </div>
+                                    <div class="text-[10px] text-neon-cyan font-mono uppercase tracking-wider">Rendering...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. ABOUT -->
+    <section id="about" class="relative z-10 py-20 bg-slate-900/50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <span class="text-neon-cyan font-mono text-sm tracking-widest uppercase mb-2 block">02 // Profile</span>
+                <h2 class="font-mono text-3xl md:text-5xl font-bold mb-6 text-white uppercase">The Person Behind The Code</h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-neon-cyan to-neon-purple mx-auto mb-8 rounded-full"></div>
+                <div class="text-slate-300 text-lg leading-loose font-light space-y-6">
+                    <p>
+                        Hi, I'm Mohammed. I’m a Computer Science student at <strong class="text-white">AASTMT</strong>, which means I spend a lot of time staring at code. I speak the language of algorithms, APIs, and databases fluently.
+                    </p>
+                    <p>
+                        But I noticed a frustrating problem in our field: <em class="text-white">Code is invisible.</em> You can build the most robust architecture in the world, but to a client or stakeholder, it's just a black box. They can't see the logic.
+                    </p>
+                    <p>
+                        That’s why I pivoted to <span class="text-neon-purple font-bold">Technical Motion Design</span>. I realized I could use my engineering background to authentically visualize how software works. I don't just make things "look cool"—I translate your actual backend complexity into visuals that make people nod their heads and say, "Oh, I get it now."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. EDUCATION (University Only - With Logo) -->
+    <section id="education" class="relative z-10 py-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center mb-12">
+                <span class="text-neon-purple font-mono text-sm tracking-widest uppercase mb-2 block">03 // Academic Foundation</span>
+                <h2 class="font-mono text-3xl md:text-5xl font-bold text-white uppercase">Education</h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="card-glass p-8 md:p-12 rounded-xl border border-white/10 hover:border-neon-blue/50 transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-neon-blue/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left">
+                        <!-- University Logo Placeholder -->
+                        <div class="w-32 h-32 flex items-center justify-center flex-shrink-0 bg-white rounded-full p-2 shadow-lg shadow-blue-900/20">
+                             <!-- AASTMT Logo -->
+                             <img src="C:\Users\Asus\Desktop\logo.png" alt="AASTMT Logo" class="w-full h-full object-contain">
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-mono text-2xl md:text-3xl font-bold text-white mb-2">Arab Academy for Science, Technology & Maritime Transport</h3>
+                            <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-4">
+                                <span class="px-3 py-1 bg-neon-blue/10 text-neon-blue text-xs font-bold font-mono uppercase rounded-full">Bachelor of Science</span>
+                                <span class="px-3 py-1 bg-slate-700 text-slate-300 text-xs font-mono rounded-full">Alexandria, Egypt</span>
+                            </div>
+                            <h4 class="text-xl text-neon-cyan font-bold mb-2">Major: Computer Science</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Focusing on core software engineering principles, algorithms, data structures, and system architecture. This rigorous technical training allows me to understand the intricate logic I now visualize for clients.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SKILLS -->
+    <section id="skills" class="relative z-10 py-24 bg-slate-900/50 overflow-hidden">
+        <div class="container mx-auto px-6 text-center mb-16">
+            <span class="text-neon-gold font-mono text-sm tracking-widest uppercase mb-2 block">04 // Full Arsenal</span>
+            <h2 class="font-mono text-3xl md:text-5xl font-bold text-white uppercase">My Skillset</h2>
+            <p class="text-slate-400 mt-4 max-w-2xl mx-auto">From writing the backend to animating the frontend.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
+            <!-- Visual / Motion Skills -->
+            <div class="card-glass p-10 rounded-xl border-t-4 border-t-neon-purple group hover:bg-slate-800/50 transition-colors">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="p-3 rounded-lg bg-neon-purple/10 text-neon-purple">
+                        <i data-lucide="palette" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-white font-mono text-3xl font-bold">Design & Motion</h3>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="border-l-2 border-neon-purple/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">After Effects & Kinetic Typography</h4>
+                        <p class="text-sm text-slate-400">Crafting high-energy text animations and seamless transitions to explain concepts dynamically.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-purple/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Cinema 4D & Blender</h4>
+                        <p class="text-sm text-slate-400">Building abstract 3D environments and assets to add depth and dimension to tech visuals.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-purple/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Storyboarding & Visual Layout</h4>
+                        <p class="text-sm text-slate-400">Planning the narrative flow frame-by-frame before a single keyframe is set.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-purple/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Premiere Pro</h4>
+                        <p class="text-sm text-slate-400">Editing final cuts with sound design integration for maximum impact.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical / Dev Skills -->
+            <div class="card-glass p-10 rounded-xl border-t-4 border-t-neon-cyan group hover:bg-slate-800/50 transition-colors">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="p-3 rounded-lg bg-neon-cyan/10 text-neon-cyan">
+                        <i data-lucide="terminal" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-white font-mono text-3xl font-bold">Development & Logic</h3>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="border-l-2 border-neon-cyan/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Full Stack (Laravel & React)</h4>
+                        <p class="text-sm text-slate-400">Building scalable web applications. I understand the MVC architecture I'm often asked to visualize.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-cyan/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Python & Data Logic</h4>
+                        <p class="text-sm text-slate-400">Writing scripts for automation and data processing, essential for data-driven visualizations.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-cyan/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Java & Julia</h4>
+                        <p class="text-sm text-slate-400">Strong foundation in object-oriented programming and high-performance computing concepts.</p>
+                    </div>
+                    <div class="border-l-2 border-neon-cyan/30 pl-4">
+                        <h4 class="text-white font-bold mb-2 text-lg">Database Design</h4>
+                        <p class="text-sm text-slate-400">Structuring data schemas efficiently, which helps in visualizing data flows accurately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. EXPERIENCE (DEPI Focused - Full Width & Expanded) -->
+    <section id="experience" class="relative z-10 py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-neon-cyan font-mono text-sm tracking-widest uppercase mb-2 block">05 // Professional Journey</span>
+                <h2 class="font-mono text-3xl md:text-5xl font-bold text-white uppercase">Experience</h2>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <!-- Full Width Experience Card -->
+                <div class="card-glass p-8 md:p-12 rounded-xl border-l-4 border-l-neon-purple hover:bg-slate-800/60 transition-colors w-full group">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                        <div>
+                            <h3 class="font-bold text-white text-3xl md:text-4xl mb-3 group-hover:text-neon-purple transition-colors">Digital Egypt Pioneers Initiative (DEPI)</h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-neon-purple font-mono text-sm font-bold uppercase tracking-wider bg-neon-purple/10 px-3 py-1 rounded">Motion Graphics Scholar</span>
+                                <span class="text-slate-400 text-xs font-mono border border-slate-700 px-3 py-1 rounded">Ministry of Communications & IT</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 md:mt-0 p-4 bg-white/5 rounded-full border border-white/10">
+                            <i data-lucide="award" class="w-10 h-10 text-neon-gold"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 text-lg leading-relaxed mb-10 border-b border-white/10 pb-8">
+                        Selected for this prestigious, intensive scholarship program focused on mastering the art of visual storytelling for the digital age. This role involves rigorous training, practical application of advanced animation techniques, and collaborating on high-fidelity motion projects.
+                    </p>
+                    
+                    <!-- Expanded Skills Grid -->
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-black/20 p-6 rounded-lg border border-white/5">
+                            <h4 class="text-neon-cyan font-bold mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
+                                <i data-lucide="video" class="w-4 h-4"></i> Animation Core
+                            </h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    2D Vector Motion
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Kinetic Typography
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Character Animation
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-black/20 p-6 rounded-lg border border-white/5">
+                            <h4 class="text-neon-cyan font-bold mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
+                                <i data-lucide="box" class="w-4 h-4"></i> 3D & VFX
+                            </h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    3D Modeling (C4D)
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Texturing & Lighting
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Visual Effects Integration
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-black/20 p-6 rounded-lg border border-white/5">
+                            <h4 class="text-neon-cyan font-bold mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
+                                <i data-lucide="pen-tool" class="w-4 h-4"></i> Pre-Production
+                            </h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Advanced Storyboarding
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Visual Composition
+                                </li>
+                                <li class="flex items-center gap-3 text-slate-400 text-sm">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-neon-purple"></div>
+                                    Concept Development
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. OFFERED SERVICES -->
+    <section id="services" class="relative z-10 py-20 bg-slate-900/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-white font-mono text-sm tracking-widest uppercase mb-2 block">06 // How I Help</span>
+                <h2 class="font-mono text-3xl md:text-5xl font-bold text-white uppercase">Offered Services</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-cyan">
+                    <div class="w-10 h-10 bg-neon-cyan/20 rounded-full flex items-center justify-center text-neon-cyan mb-4">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">SaaS Demos</h3>
+                    <p class="text-slate-400 text-xs mb-4">Showcasing software flows with polished, high-fidelity motion.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-purple">
+                    <div class="w-10 h-10 bg-neon-purple/20 rounded-full flex items-center justify-center text-neon-purple mb-4">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Technical Explainers</h3>
+                    <p class="text-slate-400 text-xs mb-4">Breaking down complex architecture into understandable visuals.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-blue">
+                    <div class="w-10 h-10 bg-neon-blue/20 rounded-full flex items-center justify-center text-neon-blue mb-4">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Data Storytelling</h3>
+                    <p class="text-slate-400 text-xs mb-4">Animating data sets to reveal trends and insights dynamically.</p>
+                </div>
+                
+                 <!-- Service 4 -->
+                <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-gold">
+                    <div class="w-10 h-10 bg-neon-gold/20 rounded-full flex items-center justify-center text-neon-gold mb-4">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Kinetic Typography</h3>
+                    <p class="text-slate-400 text-xs mb-4">Expressive text animation for branding and social media impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="relative z-10 py-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto card-glass p-8 md:p-20 rounded-xl border border-neon-cyan/20 text-center relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-neon-cyan/20 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-neon-cyan/30 transition-colors duration-700"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-neon-purple/20 rounded-full blur-[100px] -ml-32 -mb-32 pointer-events-none group-hover:bg-neon-purple/30 transition-colors duration-700"></div>
+                
+                <h2 class="font-mono text-3xl md:text-6xl font-bold text-white mb-6 md:mb-8 uppercase tracking-tight relative z-10">
+                    Let's Make Your Tech <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">Visible.</span>
+                </h2>
+                <p class="text-slate-400 text-base md:text-lg mb-8 md:mb-12 max-w-xl mx-auto font-light relative z-10">
+                    I'm learning fast and building things that matter. Ready to collaborate?
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
+                    <a href="mailto:mohammederaky532@gmail.com" class="group flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-mono font-bold uppercase tracking-widest hover:shadow-[0_0_40px_rgba(0,243,255,0.4)] transition-all duration-300 transform hover:-translate-y-1 rounded-sm text-sm md:text-base">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <span>Send_Message</span>
+                    </a>
+                    <div class="flex justify-center gap-4">
+                        <a href="https://github.com/nasscoder" target="_blank" class="p-5 bg-black/50 text-white border border-white/20 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-[0_0_20px_rgba(0,243,255,0.2)] transition-all duration-300 transform hover:-translate-y-1 rounded-sm">
+                            <i data-lucide="github" class="w-6 h-6"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mohammednassar0" target="_blank" class="p-5 bg-black/50 text-white border border-white/20 hover:border-neon-purple hover:text-neon-purple hover:shadow-[0_0_20px_rgba(188,19,254,0.2)] transition-all duration-300 transform hover:-translate-y-1 rounded-sm">
+                            <i data-lucide="linkedin" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-10 text-center border-t border-white/5 bg-slate-900">
+        <div class="flex flex-col items-center gap-4">
+            <p class="text-slate-500 font-mono text-xs md:text-sm uppercase tracking-widest">
+                &copy; <span id="year"></span> NASSCODER. All Systems Nominal.
+            </p>
+            <div class="flex items-center gap-2 px-4 py-1 bg-white/5 rounded-full border border-white/5">
+                <i data-lucide="terminal" class="w-3 h-3 text-neon-cyan"></i>
+                <span class="text-xs text-slate-400 font-mono">loc: Alexandria, EGY</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Floating elements slightly follow mouse for 3D feel
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                const x = (window.innerWidth - e.pageX) / 50;
+                const y = (window.innerHeight - e.pageY) / 50;
+                
+                const cards = document.querySelectorAll('.card-glass');
+                // Apply subtle parallax to cards only on desktop
+                if(window.innerWidth > 768) {
+                    cards.forEach(card => {
+                        // Very subtle movement
+                        // card.style.transform = `translate(${x}px, ${y}px)`; 
+                        // Note: disabled to prevent conflict with hover transforms
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
