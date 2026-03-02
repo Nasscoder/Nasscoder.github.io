@@ -44,7 +44,6 @@
                         'grid-move': 'grid-move 20s linear infinite',
                     },
                     keyframes: {
-                        // Updated to face RIGHT (-12deg) and float up/down
                         'float-card': {
                             '0%, 100%': { transform: 'translateY(0) rotateY(-12deg) rotateX(5deg)' },
                             '50%': { transform: 'translateY(-20px) rotateY(-12deg) rotateX(5deg)' },
@@ -73,7 +72,7 @@
             overflow-x: hidden;
         }
 
-        /* Futuristic Scrollbar */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 4px;
@@ -92,7 +91,7 @@
             animation: grid-move 20s linear infinite;
         }
 
-        /* Lighter Glass Effect */
+        /* Glass Effect */
         .card-glass {
             background: rgba(30, 41, 59, 0.4); 
             backdrop-filter: blur(12px);
@@ -160,7 +159,7 @@
     <!-- Background Layers -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         
-        <!-- Faster, Visible Blobs -->
+        <!-- Visible Blobs -->
         <div class="absolute top-[5%] left-[10%] w-[600px] h-[600px] bg-neon-purple rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob"></div>
         <div class="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-neon-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[0%] left-[20%] w-[700px] h-[700px] bg-neon-blue rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
@@ -237,7 +236,7 @@
                 </div>
             </div>
 
-            <!-- 3D Card Visual - Moving & Floating -->
+            <!-- 3D Card Visual -->
             <div class="relative h-[500px] w-full hidden md:flex items-center justify-center perspective-1000">
                 <div class="relative w-80 h-[450px] transform-style-3d group">
                     <!-- Glow behind -->
@@ -270,7 +269,7 @@
                             <p class="text-white">};</p>
                         </div>
                         
-                        <!-- Rendering Section - Explicitly Inside -->
+                        <!-- Rendering Section -->
                         <div class="mt-auto pt-4 border-t border-white/10">
                             <div class="bg-slate-900/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-neon-cyan/20 flex items-center justify-center text-neon-cyan">
@@ -312,7 +311,7 @@
         </div>
     </section>
 
-    <!-- 3. EDUCATION (University Only - With Logo) -->
+    <!-- 3. EDUCATION -->
     <section id="education" class="relative z-10 py-20">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center mb-12">
@@ -417,7 +416,7 @@
         </div>
     </section>
 
-    <!-- 5. EXPERIENCE (DEPI Focused - Full Width & Expanded) -->
+    <!-- 5. EXPERIENCE -->
     <section id="experience" class="relative z-10 py-24">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -426,7 +425,7 @@
             </div>
 
             <div class="max-w-6xl mx-auto">
-                <!-- Full Width Experience Card -->
+                <!-- Experience Card -->
                 <div class="card-glass p-8 md:p-12 rounded-xl border-l-4 border-l-neon-purple hover:bg-slate-800/60 transition-colors w-full group">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                         <div>
@@ -445,7 +444,7 @@
                         Selected for this prestigious, intensive scholarship program focused on mastering the art of visual storytelling for the digital age. This role involves rigorous training, practical application of advanced animation techniques, and collaborating on high-fidelity motion projects.
                     </p>
                     
-                    <!-- Expanded Skills Grid -->
+                    <!-- Skills Grid -->
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="bg-black/20 p-6 rounded-lg border border-white/5">
                             <h4 class="text-neon-cyan font-bold mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
@@ -619,19 +618,16 @@
             }
         });
 
-        // Floating elements slightly follow mouse for 3D feel
+        // Floating elements
         document.addEventListener('mousemove', (e) => {
             requestAnimationFrame(() => {
                 const x = (window.innerWidth - e.pageX) / 50;
                 const y = (window.innerHeight - e.pageY) / 50;
                 
                 const cards = document.querySelectorAll('.card-glass');
-                // Apply subtle parallax to cards only on desktop
+                // Subtle parallax to cards only on desktop
                 if(window.innerWidth > 768) {
                     cards.forEach(card => {
-                        // Very subtle movement
-                        // card.style.transform = `translate(${x}px, ${y}px)`; 
-                        // Note: disabled to prevent conflict with hover transforms
                     });
                 }
             });
@@ -640,6 +636,7 @@
 </body>
 
 </html>
+
 
 
 
