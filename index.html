@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammed Nassar | Technical Motion Design</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Google Fonts: Rajdhani for futuristic headers, Inter for body -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom Tailwind Config for Neon Colors -->
     <script>
         tailwind.config = {
             theme: {
@@ -64,7 +60,6 @@
         }
     </script>
 
-    <!-- Custom Styles -->
     <style>
         body {
             background-color: #0f172a; 
@@ -156,18 +151,14 @@
 </head>
 <body class="antialiased selection:bg-neon-cyan selection:text-black">
 
-    <!-- Background Layers -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         
-        <!-- Visible Blobs -->
         <div class="absolute top-[5%] left-[10%] w-[600px] h-[600px] bg-neon-purple rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob"></div>
         <div class="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-neon-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[0%] left-[20%] w-[700px] h-[700px] bg-neon-blue rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
-        <!-- Warm accent -->
         <div class="absolute top-[60%] right-[40%] w-[400px] h-[400px] bg-neon-gold rounded-full mix-blend-screen filter blur-[100px] opacity-15 animate-blob"></div>
     </div>
 
-    <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex justify-between items-center w-full md:w-auto">
@@ -176,13 +167,11 @@
                     <span>MOHAMMED<span class="text-neon-cyan group-hover:text-white transition-colors">Nassar</span></span>
                 </a>
                 
-                <!-- Github Mobile -->
                 <a href="https://github.com/nasscoder" target="_blank" class="md:hidden flex items-center gap-2 px-3 py-1 text-xs font-bold font-mono uppercase tracking-widest text-black bg-neon-cyan rounded-sm clip-path-slant">
                     <i data-lucide="github" class="w-3 h-3"></i>
                 </a>
             </div>
             
-            <!-- Horizontal Scroll Menu for Mobile -->
             <div class="w-full md:w-auto overflow-x-auto no-scrollbar">
                 <div class="flex items-center space-x-6 md:space-x-8 bg-slate-800/50 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 min-w-max mx-auto">
                     <a href="#home" class="nav-link font-mono text-xs md:text-sm uppercase tracking-widest text-neon-cyan hover:text-white transition-colors">Home</a>
@@ -196,7 +185,6 @@
                 </div>
             </div>
 
-            <!-- Github Desktop -->
             <a href="https://github.com/nasscoder" target="_blank" class="hidden md:flex items-center gap-2 px-5 py-2 text-sm font-bold font-mono uppercase tracking-widest text-slate-900 bg-neon-cyan hover:bg-white hover:shadow-[0_0_20px_rgba(0,243,255,0.6)] transition-all duration-300 rounded-sm clip-path-slant">
                 <i data-lucide="github" class="w-4 h-4"></i>
                 <span>GitHub</span>
@@ -204,7 +192,6 @@
         </div>
     </nav>
 
-    <!-- 1. HOME (Cover) -->
     <section id="home" class="relative z-10 min-h-screen flex items-center justify-center pt-24 md:pt-20">
         <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="space-y-6 md:space-y-8 text-center md:text-left floating-delayed">
@@ -228,24 +215,21 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-                    <a href="#services" class="px-8 py-4 bg-neon-cyan text-slate-900 font-mono font-bold uppercase tracking-widest hover:bg-white hover:shadow-[0_0_30px_rgba(0,243,255,0.4)] transition-all duration-300 rounded-sm">
+                    <a href="#services" class="px-8 py-4 bg-neon-cyan text-slate-900 font-mono font-bold uppercase tracking-widest hover:bg-white hover:shadow-[0_0_30px_rgba(0,243,255,0.4)] transition-all duration-300 rounded-sm flex items-center justify-center">
                         View_Services
                     </a>
-                    <a href="#contact" class="px-8 py-4 bg-white/5 border border-white/20 text-white font-mono font-bold uppercase tracking-widest hover:bg-white/10 hover:border-neon-purple transition-all duration-300 rounded-sm">
-                        Contact_Me
+                    <a href="files/MNVC.pdf" download="MNVC.pdf" class="px-8 py-4 bg-white/5 border border-neon-purple text-white font-mono font-bold uppercase tracking-widest hover:bg-neon-purple/20 hover:shadow-[0_0_20px_rgba(188,19,254,0.3)] transition-all duration-300 rounded-sm flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-5 h-5 text-neon-purple"></i>
+                        <span>Download_CV</span>
                     </a>
                 </div>
             </div>
 
-            <!-- 3D Card Visual -->
             <div class="relative h-[500px] w-full hidden md:flex items-center justify-center perspective-1000">
                 <div class="relative w-80 h-[450px] transform-style-3d group">
-                    <!-- Glow behind -->
                     <div class="absolute inset-0 bg-gradient-to-br from-neon-cyan to-neon-purple blur-[50px] opacity-30 animate-pulse"></div>
                     
-                    <!-- Card Face with Floating Animation -->
                     <div class="absolute inset-0 bg-[#0f172a] border border-white/10 backdrop-blur-xl p-6 rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-start animate-float-card" style="transform-origin: center center;">
-                         <!-- Header -->
                          <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
                              <div class="flex gap-2">
                                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -255,7 +239,6 @@
                              <span class="font-mono text-xs text-slate-400">profile.tsx</span>
                         </div>
                         
-                        <!-- Code Content -->
                         <div class="space-y-3 font-mono text-xs leading-relaxed">
                             <p><span class="text-neon-purple">const</span> <span class="text-neon-gold">Mohammed Nassar</span> = <span class="text-white">{</span></p>
                             <p class="pl-4 text-slate-400">role: <span class="text-green-400">"Creative Technologist"</span>,</p>
@@ -270,7 +253,6 @@
                             <p class="text-white">};</p>
                         </div>
                         
-                        <!-- Rendering Section -->
                         <div class="mt-auto pt-4 border-t border-white/10">
                             <div class="bg-slate-900/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-neon-cyan/20 flex items-center justify-center text-neon-cyan">
@@ -290,7 +272,6 @@
         </div>
     </section>
 
-    <!-- 2. ABOUT -->
     <section id="about" class="relative z-10 py-20 bg-slate-900/50">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto text-center mb-12">
@@ -316,7 +297,6 @@
         </div>
     </section>
 
-    <!-- 3. EDUCATION -->
     <section id="education" class="relative z-10 py-20">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center mb-12">
@@ -329,9 +309,7 @@
                     <div class="absolute top-0 right-0 w-32 h-32 bg-neon-blue/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     
                     <div class="flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left">
-                        <!-- University Logo Placeholder -->
                         <div class="w-32 h-32 flex items-center justify-center flex-shrink-0 bg-white rounded-full p-2 shadow-lg shadow-blue-900/20">
-                             <!-- AASTMT Logo -->
                              <img src="images/logo.png" alt="AASTMT Logo" class="w-full h-full object-contain">
                         </div>
                         
@@ -352,7 +330,6 @@
         </div>
     </section>
 
-    <!-- 4. SKILLS -->
     <section id="skills" class="relative z-10 py-24 bg-slate-900/50 overflow-hidden">
         <div class="container mx-auto px-6 text-center mb-16">
             <span class="text-neon-gold font-mono text-sm tracking-widest uppercase mb-2 block">04 // Full Arsenal</span>
@@ -361,7 +338,6 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16">
-            <!-- Visual / Motion Skills -->
             <div class="card-glass p-10 rounded-xl border-t-4 border-t-neon-purple group hover:bg-slate-800/50 transition-colors">
                 <div class="flex items-center gap-3 mb-8">
                     <div class="p-3 rounded-lg bg-neon-purple/10 text-neon-purple">
@@ -390,7 +366,6 @@
                 </div>
             </div>
 
-            <!-- Technical / Dev Skills -->
             <div class="card-glass p-10 rounded-xl border-t-4 border-t-neon-cyan group hover:bg-slate-800/50 transition-colors">
                 <div class="flex items-center gap-3 mb-8">
                     <div class="p-3 rounded-lg bg-neon-cyan/10 text-neon-cyan">
@@ -421,7 +396,6 @@
         </div>
     </section>
 
-    <!-- 5. EXPERIENCE -->
     <section id="experience" class="relative z-10 py-24">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -430,7 +404,6 @@
             </div>
 
             <div class="max-w-6xl mx-auto">
-                <!-- Experience Card -->
                 <div class="card-glass p-8 md:p-12 rounded-xl border-l-4 border-l-neon-purple hover:bg-slate-800/60 transition-colors w-full group">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                         <div>
@@ -449,7 +422,6 @@
                         Selected for this prestigious, intensive scholarship program focused on mastering the art of visual storytelling for the digital age. This role involves rigorous training, practical application of advanced animation techniques, and collaborating on high-fidelity motion projects.
                     </p>
                     
-                    <!-- Skills Grid -->
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="bg-black/20 p-6 rounded-lg border border-white/5">
                             <h4 class="text-neon-cyan font-bold mb-4 text-sm uppercase tracking-wide flex items-center gap-2">
@@ -516,7 +488,6 @@
         </div>
     </section>
 
-    <!-- 6. Projects -->
     <section id="projects" class="relative z-10 py-32 bg-slate-900/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-24">
@@ -602,7 +573,6 @@
     </section>
     
 
-    <!-- 7. OFFERED SERVICES -->
     <section id="services" class="relative z-10 py-20 bg-slate-900/50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
@@ -611,7 +581,6 @@
             </div>
 
             <div class="grid md:grid-cols-4 gap-6">
-                <!-- Service 1 -->
                 <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-cyan">
                     <div class="w-10 h-10 bg-neon-cyan/20 rounded-full flex items-center justify-center text-neon-cyan mb-4">
                         <i data-lucide="play-circle" class="w-5 h-5"></i>
@@ -620,7 +589,6 @@
                     <p class="text-slate-400 text-xs mb-4">Showcasing software flows with polished, high-fidelity motion.</p>
                 </div>
 
-                <!-- Service 2 -->
                 <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-purple">
                     <div class="w-10 h-10 bg-neon-purple/20 rounded-full flex items-center justify-center text-neon-purple mb-4">
                         <i data-lucide="layers" class="w-5 h-5"></i>
@@ -629,7 +597,6 @@
                     <p class="text-slate-400 text-xs mb-4">Breaking down complex architecture into understandable visuals.</p>
                 </div>
 
-                <!-- Service 3 -->
                 <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-blue">
                     <div class="w-10 h-10 bg-neon-blue/20 rounded-full flex items-center justify-center text-neon-blue mb-4">
                         <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
@@ -638,8 +605,7 @@
                     <p class="text-slate-400 text-xs mb-4">Animating data sets to reveal trends and insights dynamically.</p>
                 </div>
                 
-                 <!-- Service 4 -->
-                <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-gold">
+                 <div class="card-glass p-6 rounded-lg hover:-translate-y-2 transition-transform duration-300 border-t-2 border-t-neon-gold">
                     <div class="w-10 h-10 bg-neon-gold/20 rounded-full flex items-center justify-center text-neon-gold mb-4">
                         <i data-lucide="type" class="w-5 h-5"></i>
                     </div>
@@ -650,7 +616,6 @@
         </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="relative z-10 py-20">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto card-glass p-8 md:p-20 rounded-xl border border-neon-cyan/20 text-center relative overflow-hidden group">
@@ -666,7 +631,7 @@
 
                 <div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mohammederaky532@gmail.com" target="_blank" class="px-8 py-4 bg-neon-cyan text-slate-900 font-mono font-bold uppercase tracking-widest rounded-sm">
-                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <i data-lucide="mail" class="w-5 h-5 inline-block -mt-1 mr-1"></i>
                         <span>GET_IN_TOUCH</span>
                     </a>
                     <div class="flex justify-center gap-4">
@@ -682,7 +647,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="relative z-10 py-10 text-center border-t border-white/5 bg-slate-900">
         <div class="flex flex-col items-center gap-4">
             <p class="text-slate-500 font-mono text-xs md:text-sm uppercase tracking-widest">
@@ -695,7 +659,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
@@ -727,10 +690,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
