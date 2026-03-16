@@ -513,60 +513,82 @@
     </section>
 
     <!-- 6. Projects -->
-    <section id="projects" class="relative z-10 py-24 bg-slate-900/30">
+    <section id="projects" class="relative z-10 py-32 bg-slate-900/30">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+            <div class="text-center mb-24">
                 <span class="text-neon-purple font-mono text-sm tracking-widest uppercase mb-2 block">06 // Visualized Logic</span>
-                <h2 class="font-mono text-3xl md:text-5xl font-bold text-white uppercase">Featured Work</h2>
-                <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Translating backend complexity into frontend clarity.</p>
+                <h2 class="font-mono text-4xl md:text-6xl font-bold text-white uppercase tracking-tight">Featured Work</h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-neon-purple to-neon-cyan mx-auto mt-6 mb-6 rounded-full"></div>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto font-light">Translating backend complexity into frontend clarity through high-fidelity motion.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="space-y-32 max-w-7xl mx-auto">
                 
-                <div class="card-glass rounded-xl overflow-hidden group border border-white/10 hover:border-neon-cyan/50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative aspect-video bg-black/80 border-b border-white/10">
-                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" autoplay loop muted playsinline>
-                            <source src="videos/project1.mp4" type="video/mp4">
-                        </video>
+                <div class="flex flex-col md:flex-row items-center gap-12 group">
+                    <div class="w-full md:w-3/5 rounded-xl overflow-hidden card-glass border border-white/10 group-hover:border-neon-cyan/50 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(0,243,255,0.15)] relative">
+                        <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
+                        <div class="relative aspect-video bg-black/80">
+                            <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                <source src="videos/project1.mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-neon-cyan transition-colors">Project Title One</h3>
-                        <p class="text-sm text-slate-400 mb-4 font-light">A brief description of the technical concept or software flow visualized in this piece.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-neon-purple/10 text-neon-purple text-[10px] font-mono uppercase rounded border border-neon-purple/20">After Effects</span>
-                            <span class="px-2 py-1 bg-neon-cyan/10 text-neon-cyan text-[10px] font-mono uppercase rounded border border-neon-cyan/20">Illustrator</span>
+                    <div class="w-full md:w-2/5 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-cyan/10 border border-neon-cyan/20 text-neon-cyan text-xs font-mono uppercase tracking-wider">
+                            <i data-lucide="database" class="w-3 h-3"></i> System Architecture
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white group-hover:text-neon-cyan transition-colors">The Anatomy of a Database Fetch</h3>
+                        <p class="text-slate-300 leading-relaxed font-light text-lg">
+                            An abstract visualization of the lifecycle of a data query. This piece breaks down the invisible journey from the client's initial request, through the API routing layer, down to the database query execution. It visualizes how raw data is parsed, formatted into a JSON payload, and securely delivered back to the frontend to be rendered for the user.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-4 border-t border-white/10">
+                            <span class="text-slate-400 text-sm font-mono uppercase tracking-wider"><span class="text-neon-purple font-bold">Tooling:</span> After Effects, Illustrator</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-glass rounded-xl overflow-hidden group border border-white/10 hover:border-neon-purple/50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative aspect-video bg-black/80 border-b border-white/10">
-                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" autoplay loop muted playsinline>
-                            <source src="videos/project2.mp4" type="video/mp4">
-                        </video>
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+                    <div class="w-full md:w-3/5 rounded-xl overflow-hidden card-glass border border-white/10 group-hover:border-neon-purple/50 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(188,19,254,0.15)] relative">
+                        <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-neon-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
+                        <div class="relative aspect-video bg-black/80">
+                            <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                <source src="videos/project2.mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-neon-purple transition-colors">Project Title Two</h3>
-                        <p class="text-sm text-slate-400 mb-4 font-light">A brief description of the technical concept or software flow visualized in this piece.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-neon-purple/10 text-neon-purple text-[10px] font-mono uppercase rounded border border-neon-purple/20">After Effects</span>
-                            <span class="px-2 py-1 bg-neon-blue/10 text-neon-blue text-[10px] font-mono uppercase rounded border border-neon-blue/20">Premiere</span>
+                    <div class="w-full md:w-2/5 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-purple/10 border border-neon-purple/20 text-neon-purple text-xs font-mono uppercase tracking-wider">
+                            <i data-lucide="image" class="w-3 h-3"></i> Algorithm Visualization
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white group-hover:text-neon-purple transition-colors">Pixel Reduction: Image Compression</h3>
+                        <p class="text-slate-300 leading-relaxed font-light text-lg">
+                            A frame-by-frame breakdown of how compression algorithms optimize file sizes without destroying visual fidelity. This animation visualizes the process of scanning a pixel grid, identifying redundant color data, and clustering similar pixels together. It bridges the gap between the mathematical logic of data reduction and the visual result seen by the end user.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-4 border-t border-white/10">
+                            <span class="text-slate-400 text-sm font-mono uppercase tracking-wider"><span class="text-neon-cyan font-bold">Tooling:</span> After Effects, Illustrator</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-glass rounded-xl overflow-hidden group border border-white/10 hover:border-neon-blue/50 hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative aspect-video bg-black/80 border-b border-white/10">
-                        <video class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" autoplay loop muted playsinline>
-                            <source src="videos/project3.mp4" type="video/mp4">
-                        </video>
+                <div class="flex flex-col md:flex-row items-center gap-12 group">
+                    <div class="w-full md:w-3/5 rounded-xl overflow-hidden card-glass border border-white/10 group-hover:border-neon-gold/50 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(251,191,36,0.15)] relative">
+                        <div class="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-neon-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
+                        <div class="relative aspect-video bg-black/80">
+                            <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                <source src="videos/project3.mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-neon-blue transition-colors">Project Title Three</h3>
-                        <p class="text-sm text-slate-400 mb-4 font-light">A brief description of the technical concept or software flow visualized in this piece.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-neon-purple/10 text-neon-purple text-[10px] font-mono uppercase rounded border border-neon-purple/20">After Effects</span>
-                            <span class="px-2 py-1 bg-neon-gold/10 text-neon-gold text-[10px] font-mono uppercase rounded border border-neon-gold/20">Blender</span>
+                    <div class="w-full md:w-2/5 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-gold/10 border border-neon-gold/20 text-neon-gold text-xs font-mono uppercase tracking-wider">
+                            <i data-lucide="layers" class="w-3 h-3"></i> Data Structures
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white group-hover:text-neon-gold transition-colors">LIFO Logic: The Stack Explained</h3>
+                        <p class="text-slate-300 leading-relaxed font-light text-lg">
+                            Demystifying one of the most fundamental data structures in computer science. This loop illustrates the Last-In, First-Out (LIFO) principle in action. By visualizing memory allocation, it clearly demonstrates how "push" and "pop" operations manipulate the execution context, giving a physical sense of weight and order to backend memory management.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-4 border-t border-white/10">
+                            <span class="text-slate-400 text-sm font-mono uppercase tracking-wider"><span class="text-neon-purple font-bold">Tooling:</span> After Effects, Illustrator</span>
                         </div>
                     </div>
                 </div>
