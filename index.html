@@ -661,9 +661,6 @@
     <script>
         // Ensure the DOM is fully loaded before initializing icons and setting the year
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
 
             const yearElement = document.getElementById('year');
             if (yearElement) {
@@ -695,6 +692,9 @@
                 }
             });
         });
+    </script>
+    <script>
+      lucide.createIcons();
     </script>
 </body>
 </html>
