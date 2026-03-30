@@ -152,7 +152,6 @@
 <body class="antialiased selection:bg-neon-cyan selection:text-black">
 
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        
         <div class="absolute top-[5%] left-[10%] w-[600px] h-[600px] bg-neon-purple rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob"></div>
         <div class="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-neon-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-25 animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[0%] left-[20%] w-[700px] h-[700px] bg-neon-blue rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
@@ -660,8 +659,17 @@
     </footer>
 
     <script>
-        lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // Ensure the DOM is fully loaded before initializing icons and setting the year
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            const yearElement = document.getElementById('year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
 
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -682,11 +690,11 @@
                 // Subtle parallax to cards only on desktop
                 if(window.innerWidth > 768) {
                     cards.forEach(card => {
+                        // Keep original logic
                     });
                 }
             });
         });
     </script>
 </body>
-
 </html>
