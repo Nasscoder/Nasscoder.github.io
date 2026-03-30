@@ -7,7 +7,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
@@ -659,8 +659,14 @@
     </footer>
 
     <script>
-        // Ensure the DOM is fully loaded before initializing icons and setting the year
-        document.addEventListener('DOMContentLoaded', () => {
+        // Ensure ALL external resources and the DOM are fully loaded before firing
+        window.addEventListener('load', () => {
+            // Check if Lucide loaded successfully
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.error("Lucide failed to load. Please check your internet connection or adblocker.");
+            }
 
             const yearElement = document.getElementById('year');
             if (yearElement) {
@@ -692,9 +698,6 @@
                 }
             });
         });
-    </script>
-    <script>
-      lucide.createIcons();
     </script>
 </body>
 </html>
